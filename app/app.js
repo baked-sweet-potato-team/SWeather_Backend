@@ -2,13 +2,18 @@
 
 const express=require("express");
 const app = express();
+const PORT = 9000;
 
 //routing
-const home = require("./src/routes");
+const home = require("./src/routes/router.js");
 
 //setiing
 app.set("views", "./src/views");
 app.set("view engine", "ejs");
 
-app.use(express.static(`${__dirname}/src/JS`));
+//middle ware
 app.use("/", home);
+
+app.listen(PORT, function() {
+    console.log("server started");
+});
