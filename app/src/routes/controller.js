@@ -9,6 +9,9 @@ const output = {
     login: (req, res) => {
         res.render("../views/login.ejs");
     },
+    register: (req,res) => {
+        res.render("../views/register.ejs")
+    }
 }
 const process = {
     login : (req,res) => {

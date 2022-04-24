@@ -1,6 +1,5 @@
 "use strict";
 
-
 const UserStorage = require("./UserStorage");
 
 class User {
