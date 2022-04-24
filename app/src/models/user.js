@@ -1,7 +1,7 @@
 "use strict";
 
 const { response } = require("express");
-const UserStorage = require("./UserStorage");
+const UserStorage = require("./userStorage");
 
 class User {
     constructor(body) {
