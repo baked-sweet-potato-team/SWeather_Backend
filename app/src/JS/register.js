@@ -30,7 +30,7 @@ function register() {
         if(res.success) {
             location.href = "/login";
         } else {
-            alert(res,msg);
+            alert(res, msg);
         }
     }).catch((err) => {
         console.log(new Error("register error"));

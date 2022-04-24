@@ -1,6 +1,6 @@
 "use strict";
 
-const User = require("C:/Users/hsh99/Desktop/sweather/app/src/models/user");
+const User = require("../models/user");
 
 const output = {
     index: (req, res) => {

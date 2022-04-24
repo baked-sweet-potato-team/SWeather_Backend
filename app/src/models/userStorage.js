@@ -38,7 +38,7 @@ class userStorage {
         .then((data)=>{
             return this.#getUserInfo(data, id);
         })
-        .catch((err) => console.error);            
+        .catch(console.error);            
     }
 
     static async save(userInfo) {

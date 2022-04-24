@@ -1,12 +1,14 @@
 "use strict";
 
+
+//modules
 const express=require("express");
 const app = express();
 const bodyParser = require("body-parser");
-const PORT = 9000;
+
 
 //routing
-const home = require("./src/routes/router.js");
+const home = require("./src/routes/router");
 
 //setiing
 app.set("views", "./src/views");
@@ -18,6 +20,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use("/", home);
 
+
+//server started
+const PORT = 9000;
 app.listen(PORT, function() {
     console.log("server started");
 });
