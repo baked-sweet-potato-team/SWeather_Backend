@@ -1,23 +1,10 @@
 "use strict";
 
+const fs = require("fs").promises;
+
 class userStorage {    
-    static #users = {
-        id: ["h", "a","b"],
-        password: ["1234", "1234", "1234"],
-        name: ["h", "a", "b"],
-    };
-    static getUsers(...fields) {
-        const users = this.#users;
-        const newUsers = fields.reduce((newUsers, field) => {
-            if(users.hasOwnProperty(field)) {
-                newUsers[field] = users[field];
-            }
-            return newUsers;
-        }, {});
-        return newUsers;
-    }
-    static getUserInfo(id) {
-        const users = this.#users;
+    static #getUserInfo(data, id) {
+        const users = JSON.parse(data);
         const idx = users.id.indexOf(id);
         const userKey = Object.keys(users);
         const userInfo = userKey.reduce((newUsers, info) => {
@@ -26,11 +13,45 @@ class userStorage {
         }, {});
         return userInfo;
     }
-    static save(userInfo) {
-        const users = this.#users;
+    static #getUsers(data, isAll, fields) {
+        const users = JSON.parse(data);
+        if(isAll) return users;
+        const newUsers = fields.reduce((newUsers, field) => {
+            if(users.hasOwnProperty(field)) {
+                newUsers[field] = users[field];
+            }
+            return newUsers;
+        }, {});
+        return newUsers;
+    }
+
+    static getUsers(isAll,...fields) {
+        return fs.readFile("./src/Database/users.json")
+        .then((data)=>{
+            return this.#getUsers(data, isAll,fields);
+        })
+        .catch(console.error);
+    }
+
+    static getUserInfo(id) {
+        return fs.readFile("./src/Database/users.json")
+        .then((data)=>{
+            return this.#getUserInfo(data, id);
+        })
+        .catch((err) => console.error);            
+    }
+
+    static async save(userInfo) {
+        const users =  await this.getUsers(true);
+        if(users.id.includes(userInfo.id)){
+           throw "이미 존재하는 아이디입니다."; 
+        }
         users.id.push(userInfo.id);
         users.name.push(userInfo.name);
         users.password.push(userInfo.password);
+        fs.writeFile("./src/Database/users.json", JSON.stringify(users));
+        return {success : true};
+        
     }
 }
 
