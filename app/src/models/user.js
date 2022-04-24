@@ -17,6 +17,10 @@ class User {
         }
         return {success : false, msg:"id error"};
     }
+    register() {
+        const client = this.body;
+        UserStorage.save(client);
+    }
 }
 
 module.exports = User;

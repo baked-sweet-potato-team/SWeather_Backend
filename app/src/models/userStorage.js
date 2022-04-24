@@ -4,7 +4,7 @@ class userStorage {
     static #users = {
         id: ["h", "a","b"],
         password: ["1234", "1234", "1234"],
-        names: ["h", "a", "b"],
+        name: ["h", "a", "b"],
     };
     static getUsers(...fields) {
         const users = this.#users;
@@ -25,6 +25,12 @@ class userStorage {
             return newUsers;
         }, {});
         return userInfo;
+    }
+    static save(userInfo) {
+        const users = this.#users;
+        users.id.push(userInfo.id);
+        users.name.push(userInfo.name);
+        users.password.push(userInfo.password);
     }
 }
 
